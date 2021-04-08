@@ -5,7 +5,7 @@ import Chat from "./Components/pages/Chat";
 
 // import { Protected } from "./component/routes/Protected";
 // import { Public } from "./component/routes/Public";
-import "./App.css";
+import "./globals.css";
 
 function App() {
   return (
@@ -13,7 +13,6 @@ function App() {
       <Switch>
         <Route exact path="/login" component={Login} />
         <Route exact path="/new-account" component={SignUp} />
-
         <Route exact path="/" component={Chat} />
       </Switch>
     </Router>

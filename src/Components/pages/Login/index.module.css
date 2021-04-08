@@ -1,0 +1,91 @@
+.container{
+  height: 100vh;
+  width: 450px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding: 1rem; */
+}
+
+.form_container{
+  padding: 2rem;
+  width: 100%;
+  background: white;
+  border-radius: 1rem;
+}
+
+.form_container > h3 {
+  text-align: start;
+  color: var(--primary);
+  font-size: 1rem;
+}
+
+/* .form_container > form {
+
+} */
+
+.email > input,
+.password > input  {
+  width: 100%;
+  padding: .5rem 0;
+  margin-top: 1rem;
+  border: none;
+  border-bottom: 1px solid var(--dark);
+  outline: none;
+  font-size: .9rem;
+  transition: all .4s ease;
+}
+
+.email > input:focus,
+.password > input:focus{
+  border-bottom: 1px solid var(--primary);
+}
+
+.button_container{
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.button_container > button {
+  font-size: 1rem;
+  padding: .6rem 0;
+  outline: none;
+  border: 2px solid var(--primary);
+  background-color: var(--primary);
+  border-radius: 10px;
+  width: 100%;
+  color: var(--light);
+  font-weight: 600;
+  letter-spacing: .5px;
+  cursor: pointer;
+  transition: all .3s ease;
+}
+
+.button_container > button:hover {
+  background-color: transparent;
+  color: var(--primary);
+}
+
+.account{
+  display: flex;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.account > p{
+  margin-right: .5rem;
+}
+
+.account > a {
+  color: var(--primary);
+}
+
+.account > a:hover{
+  text-decoration: underline;
+}
+
+.error{
+  font-size: .65rem;
+  color: red;
+}
