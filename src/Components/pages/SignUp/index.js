@@ -19,12 +19,40 @@ const SignUp = () => {
 
   const { email, password, confirm } = newUser;
 
+  const validarEmail = (e) => {
+    if (e.target.value === "") {
+      setErrorNewUser({
+        ...errorNewUser,
+        errorEmail: false,
+      });
+    }
+  };
+
+  const validarPassword = (e) => {
+    if (e.target.value === "") {
+      setErrorNewUser({
+        ...errorNewUser,
+        errorPassword: false,
+      });
+    }
+  };
+
+  const validarConfirm = (e) => {
+    if (e.target.value === "") {
+      setErrorNewUser({
+        ...errorNewUser,
+        errorConfirm: false,
+      });
+    }
+  };
+
   const onSubmit = (e) => {
     e.preventDefault();
+
     if (
-      email.trim() === "" &&
-      password.trim() === "" &&
-      confirm.trim() === ""
+      !email.trim().length &&
+      !password.trim().length &&
+      !confirm.trim().length
     ) {
       setErrorNewUser({
         errorEmail: true,
@@ -34,54 +62,47 @@ const SignUp = () => {
       return;
     }
 
-    if (
-      email.trim() !== "" &&
-      password.trim() === "" &&
-      confirm.trim() === ""
-    ) {
-      setErrorNewUser({
-        ...errorNewUser,
-        errorPassword: true,
-        errorConfirm: true,
-      });
-      return;
-    }
-
-    if (
-      email.trim() === "" &&
-      password.trim() !== "" &&
-      confirm.trim() === ""
-    ) {
+    if (email.trim() === "") {
       setErrorNewUser({
         ...errorNewUser,
         errorEmail: true,
+      });
+      // resetError();
+      return;
+    }
+
+    if (password.trim() === "") {
+      setErrorNewUser({
+        ...errorNewUser,
+        errorPassword: true,
+      });
+      // resetError();
+      return;
+    }
+
+    if (confirm.trim() === "") {
+      setErrorNewUser({
+        ...errorNewUser,
         errorConfirm: true,
       });
+      // resetError();
       return;
     }
 
     if (password !== confirm) {
       setEqual(true);
+      setErrorNewUser({
+        ...errorNewUser,
+        errorConfirm: false,
+      });
+      // resetError();
       return;
     }
 
-    // if (email.trim() === "" && password.trim() !== "") {
-    //   setErrorEmail(true);
-    //   return;
-    // }
-
-    // if (email.trim() !== "" && password.trim() === "") {
-    //   setErrorPassword(true);
-    //   return;
-    // }
-    console.info(newUser.username);
-    console.info(newUser.email);
-    console.info(newUser.password);
-    console.info(newUser.passwordAgain);
-    // regstrar en el chat
+    // registrar en la base de datos
 
     // redireccionar al login
-    history.push("/");
+    history.push("/login");
   };
 
   return (
@@ -107,6 +128,7 @@ const SignUp = () => {
               type="email"
               placeholder="Your Email"
               value={newUser.email}
+              onFocus={validarEmail}
               onChange={(e) =>
                 setNewUser({
                   ...newUser,
@@ -121,8 +143,9 @@ const SignUp = () => {
           <div className={styles.password}>
             <input
               type="password"
-              placeholder="Your Password"
+              placeholder="New Password"
               value={newUser.password}
+              onFocus={validarPassword}
               onChange={(e) =>
                 setNewUser({
                   ...newUser,
@@ -138,11 +161,12 @@ const SignUp = () => {
             <input
               type="password"
               placeholder="Rewrite Your Password"
-              value={newUser.passwordAgain}
+              value={newUser.confirm}
+              onFocus={validarConfirm}
               onChange={(e) =>
                 setNewUser({
                   ...newUser,
-                  passwordAgain: e.target.value,
+                  confirm: e.target.value,
                 })
               }
             />
