@@ -17,12 +17,31 @@ export default firebase;
 
 const auth = firebase.auth();
 
+const mapUserFromFirebase = (user) => {
+  const { displayName, email, photoURL, uid } = user;
+  return {
+    avatar: photoURL,
+    username: displayName,
+    email,
+    uid,
+  };
+};
+
+export const authStateChange = (onChange) => {
+  return auth.onAuthStateChanged((user) => {
+    user && localStorage.setItem("token", JSON.stringify(user));
+    const normalizedUser = user ? mapUserFromFirebase(user) : null;
+    onChange(normalizedUser);
+  });
+};
+
 export const signInWithGoogle = async () => {
   const googleProvider = new firebase.auth.GoogleAuthProvider();
   auth.useDeviceLanguage();
   try {
-    await auth.signInWithPopup(googleProvider);
-    window.location = "/";
+    const user = await auth.signInWithPopup(googleProvider);
+    console.info(user);
+    // window.location = "/";
   } catch (error) {
     console.info(error.message);
   }
