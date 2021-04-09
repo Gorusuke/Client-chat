@@ -18,12 +18,24 @@
 .form_container > h3 {
   text-align: start;
   color: var(--primary);
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
-/* .form_container > form {
+.red_container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: var(--light);
+  border-radius: 10px;
+  padding: .5rem 0;
+  margin: 1rem 0;
+  border: 1px solid var(--dark);
+  cursor: pointer;
+}
 
-} */
+.red_container > img{
+  height: 20px;
+}
 
 .email > input,
 .password > input  {
