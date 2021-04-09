@@ -1,11 +1,10 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
+import useUser from "../hooks/useUser";
 
 export const Protected = ({ component: Component, ...props }) => {
   const usuario = localStorage.getItem("token");
-  // if(usuario.length === undefined){
-  //     (<Redirect to='/login' />)
-  // }
+  useUser();
 
   return (
     <Route

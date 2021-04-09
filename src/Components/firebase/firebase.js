@@ -46,3 +46,22 @@ export const signInWithGoogle = async () => {
     console.info(error.message);
   }
 };
+
+export const loginWithGithub = async () => {
+  const githubProvider = new firebase.auth.GithubAuthProvider();
+  auth.useDeviceLanguage();
+  try {
+    const user = await auth.signInWithPopup(githubProvider);
+    console.info(user);
+  } catch (error) {
+    console.info(error.message);
+  }
+};
+
+export const SignOut = async () => {
+  try {
+    await auth.signOut();
+  } catch (error) {
+    console.info(error);
+  }
+};

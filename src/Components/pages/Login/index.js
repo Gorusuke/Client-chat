@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./index.module.css";
 import { Link } from "react-router-dom";
-import { signInWithGoogle } from "../../firebase/firebase";
+import { signInWithGoogle, loginWithGithub } from "../../firebase/firebase";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -35,11 +35,19 @@ const Login = () => {
     <div className={styles.container}>
       <div className={styles.form_container}>
         <h3>Login with</h3>
-        <div className={styles.red_container} onClick={signInWithGoogle}>
-          <img
-            src="https://www.designpieces.com/wp-content/uploads/2015/09/Google_2015_logo.svg"
-            alt="google"
-          />
+        <div className={styles.redes_container}>
+          <div className={styles.red_container} onClick={signInWithGoogle}>
+            <img
+              src="https://www.designpieces.com/wp-content/uploads/2015/09/Google_2015_logo.svg"
+              alt="google"
+            />
+          </div>
+          <div className={styles.red_container} onClick={loginWithGithub}>
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/2/29/GitHub_logo_2013.svg"
+              alt="github"
+            />
+          </div>
         </div>
         <h3>Or use your email</h3>
         <form onSubmit={onSubmit}>
