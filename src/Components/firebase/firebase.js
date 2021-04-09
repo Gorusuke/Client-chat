@@ -40,7 +40,7 @@ export const signInWithGoogle = async () => {
   auth.useDeviceLanguage();
   try {
     const user = await auth.signInWithPopup(googleProvider);
-    console.info(user);
+    // console.info(user);
     // window.location = "/";
   } catch (error) {
     console.info(error.message);
@@ -52,7 +52,7 @@ export const loginWithGithub = async () => {
   auth.useDeviceLanguage();
   try {
     const user = await auth.signInWithPopup(githubProvider);
-    console.info(user);
+    // console.info(user);
   } catch (error) {
     console.info(error.message);
   }

@@ -44,7 +44,7 @@ const Login = () => {
           </div>
           <div className={styles.red_container} onClick={loginWithGithub}>
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/2/29/GitHub_logo_2013.svg"
+              src="https://github.githubassets.com/images/modules/logos_page/GitHub-Logo.png"
               alt="github"
             />
           </div>
