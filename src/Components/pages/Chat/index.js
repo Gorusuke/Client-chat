@@ -1,18 +1,36 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import socket from "../../socket";
 import styles from "./index.module.css";
 import { SignOut } from "../../firebase/firebase";
+import Messages from "../../Messages";
 
 const Chat = () => {
   // socket.emit("conectado", "Hola desde el Cliente");
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
   const user = JSON.parse(sessionStorage.getItem("token"));
   const { username, avatar } = user;
 
-  // useEffect(() => {
-  //   socket.emit("conectado", username);
-  // }, [username]);
+  useEffect(() => {
+    socket.emit("conectado", username);
+  }, [username]);
 
-  // console.info(username);
+  useEffect(() => {
+    socket.on("messages", (mes) => {
+      setMessages([...messages, mes]);
+    });
+
+    return () => {
+      socket.off();
+    };
+  }, [messages]);
+
+  const sendMessage = (e) => {
+    e.preventDefault();
+    if (!message.length) return;
+    socket.emit("message", username, message);
+    setMessage("");
+  };
 
   return (
     <div className={styles.container}>
@@ -31,16 +49,30 @@ const Chat = () => {
           <p>{2} user(s) online now</p>
           <div className={styles.notifications}>
             <h6>Notifications</h6>
-            <p>@ {"Jose"} se ha conectado al chat, Saludalo!</p>
+            <p>
+              <span> @{"Jose"}</span> se ha conectado al chat, Saludalo!
+            </p>
           </div>
         </div>
       </div>
-      <form className={styles.form}>
+      <div className={styles.form_container}>
         <div>
-          <input type="text" />
-          <button>Enviar</button>
+          {messages.map((mess, i) => (
+            <Messages key={i} mess={mess} />
+          ))}
         </div>
-      </form>
+        <form onSubmit={sendMessage}>
+          <div>
+            <input
+              type="text"
+              value={message}
+              placeholder="type your message here...!"
+              onChange={(e) => setMessage(e.target.value)}
+            />
+            <button>Enviar</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
