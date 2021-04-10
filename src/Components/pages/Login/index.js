@@ -26,8 +26,8 @@ const Login = () => {
       setErrorPassword(true);
       return;
     }
-    console.info(email);
-    console.info(password);
+    // console.info(email);
+    // console.info(password);
     // Mandar al chat
   };
 

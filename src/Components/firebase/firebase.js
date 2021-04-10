@@ -29,7 +29,16 @@ const mapUserFromFirebase = (user) => {
 
 export const authStateChange = (onChange) => {
   return auth.onAuthStateChanged((user) => {
-    user && localStorage.setItem("token", JSON.stringify(user));
+    user &&
+      sessionStorage.setItem(
+        "token",
+        JSON.stringify({
+          email: user.email,
+          username: user.displayName,
+          uid: user.uid,
+          avatar: user.photoURL,
+        })
+      );
     const normalizedUser = user ? mapUserFromFirebase(user) : null;
     onChange(normalizedUser);
   });
@@ -39,9 +48,7 @@ export const signInWithGoogle = async () => {
   const googleProvider = new firebase.auth.GoogleAuthProvider();
   auth.useDeviceLanguage();
   try {
-    const user = await auth.signInWithPopup(googleProvider);
-    // console.info(user);
-    // window.location = "/";
+    await auth.signInWithPopup(googleProvider);
   } catch (error) {
     console.info(error.message);
   }
@@ -51,8 +58,7 @@ export const loginWithGithub = async () => {
   const githubProvider = new firebase.auth.GithubAuthProvider();
   auth.useDeviceLanguage();
   try {
-    const user = await auth.signInWithPopup(githubProvider);
-    // console.info(user);
+    await auth.signInWithPopup(githubProvider);
   } catch (error) {
     console.info(error.message);
   }
@@ -60,7 +66,8 @@ export const loginWithGithub = async () => {
 
 export const SignOut = async () => {
   try {
-    await auth.signOut();
+    await firebase.auth().signOut();
+    sessionStorage.removeItem("token");
   } catch (error) {
     console.info(error);
   }

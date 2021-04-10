@@ -3,7 +3,7 @@ import { Redirect, Route } from "react-router-dom";
 import useUser from "../hooks/useUser";
 
 export const Protected = ({ component: Component, ...props }) => {
-  const usuario = localStorage.getItem("token");
+  const usuario = sessionStorage.getItem("token");
   useUser();
 
   return (
