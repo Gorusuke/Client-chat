@@ -5,40 +5,27 @@ import { SignOut } from "../../firebase/firebase";
 import Messages from "../../Messages";
 // import { useHistory } from "react-router-dom";
 
-const Chat = ({ match }) => {
+const Chat = () => {
   // socket.emit("conectado", "Hola desde el Cliente");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const [newUser, setNewUser] = useState([]);
+  const [users, setUsers] = useState([]);
+  // const [newUser, setNewUser] = useState([]);
   const user = JSON.parse(sessionStorage.getItem("token"));
   const { username, avatar } = user;
   const messageRef = useRef(null);
   // let slug = useHistory();
 
   useEffect(() => {
-    socket.emit("connected", username);
+    socket.emit("connected", username, ({ users }) => {
+      setUsers([...users, users]);
+    });
 
     return () => {
       // socket.emit("disconnect");
       socket.off();
     };
   }, [username]);
-
-  // useEffect(() => {
-  //   socket.on("newUser", (user) => {
-  //     setNewUser([...newUser, user]);
-  //   });
-  // }, [newUser]);
-
-  // useEffect(() => {
-  //   socket.on("messages", (mes) => {
-  //     setMessages([...messages, mes]);
-  //   });
-
-  //   return () => {
-  //     socket.off();
-  //   };
-  // }, [messages]);
 
   useEffect(() => {
     socket.on("message", (message) => {
@@ -57,13 +44,12 @@ const Chat = ({ match }) => {
   const sendMessage = (e) => {
     e.preventDefault();
     if (!message.length) return;
-    // socket.emit("newUser", message);
     socket.emit("sendMessage", message);
     setMessage("");
   };
 
   console.info({ message }, { messages });
-  console.info(newUser);
+  // console.info(users);
 
   return (
     <div className={styles.container}>
@@ -74,18 +60,21 @@ const Chat = ({ match }) => {
           </div>
           <h6>
             {/* {messages[0].text} */}
-            Hello, {`${username.split(" ")[0]} ${username.split(" ")[2]}`}
+            Hello, {`${username.split(" ")[0]}`}
           </h6>
           <button onClick={() => SignOut()}>Sign Out</button>
         </div>
         <div className={styles.information_container}>
           <h6>You're Online!</h6>
-          <p>{2} user(s) online now</p>
+          <p>{users.length} user(s) online now</p>
           <div className={styles.notifications}>
             <h6>Notifications</h6>
             <p>
-              <span> @{"Jose"}</span> se ha conectado al chat, Saludalo!
+              <span>@{"Jose"}</span> Has joined the chat, say hello!
             </p>
+            {/* {messages.map((message, i) => (
+              <Messages key={i} mess={message} />
+            ))} */}
           </div>
         </div>
       </div>

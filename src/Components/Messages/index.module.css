@@ -39,6 +39,27 @@
   left: -4px;
 }
 
+.user{
+  color: #09f;
+}
+
+.admin{
+  background-color: var(--secondary);
+  border-radius: .5rem;
+  font-size: .8rem;
+  color: white;
+  width: 196px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.admin > p{
+  margin: 0;
+}
+
 .text{
   width: 100%;
   display: flex;

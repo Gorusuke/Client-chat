@@ -112,6 +112,7 @@
   flex-direction: column;
   overflow: hidden;
   overflow-y: scroll;
+  padding-top: 10px;
 }
 
 .form_container > div::-webkit-scrollbar{
