@@ -1,12 +1,16 @@
 import React from "react";
 import styles from "./index.module.css";
 
-const Messages = ({ mess }) => {
+const Messages = ({ mess, username }) => {
+  const nameUser = username.split(" ")[0];
+
   return (
-    <div className={styles.message}>
+    <div
+      className={username === mess.user ? styles.message : styles.other_message}
+    >
       <span></span>
       <div className={styles.text}>
-        <p>{mess.message}</p>
+        <p>{mess.text}</p>
         <span>12:45pm</span>
       </div>
     </div>

@@ -107,8 +107,6 @@
 }
 
 .form_container > div {
-  /* background-color: rgba(0, 0, 255, 0.39); */
-  /* margin: .8rem; */
   height: 360px;
   display: flex;
   flex-direction: column;
@@ -128,16 +126,6 @@
 
 .form_container > div::-webkit-scrollbar-thumb:hover {
   background: #afafaf;
-}
-
-.form_container > div::-webkit-scrollbar-track {
-  background: #e1e1e1;
-  border-radius: 5px;
-}
-
-.form_container > div::-webkit-scrollbar-track:hover,
-.form_container > div::-webkit-scrollbar-track:active {
-background: #d4d4d4;
 }
 
 .form_container > form {
