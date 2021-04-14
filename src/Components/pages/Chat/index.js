@@ -1,24 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
 import socket from "../../socket";
 import styles from "./index.module.css";
-import { SignOut } from "../../firebase/firebase";
-import Messages from "../../Messages";
+import Messages from "../../atoms/Messages";
+import ChatLeftSide from "../../atoms/ChatLeftSide";
+import SendMessageForm from "../../atoms/SendMessageForm";
 // import { useHistory } from "react-router-dom";
 
 const Chat = () => {
-  // socket.emit("conectado", "Hola desde el Cliente");
-  const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
-  // const [newUser, setNewUser] = useState([]);
-  const user = JSON.parse(sessionStorage.getItem("token"));
-  const { username, avatar } = user;
+  const [newUser, setNewUser] = useState([]);
+  const { username } = JSON.parse(sessionStorage.getItem("token"));
   const messageRef = useRef(null);
-  // let slug = useHistory();
 
   useEffect(() => {
-    socket.emit("connected", username, ({ users }) => {
-      setUsers([...users, users]);
+    socket.emit("connected", username);
+    socket.emit("newUser", username, ({ users }) => {
+      setUsers(users);
     });
 
     return () => {
@@ -26,6 +24,12 @@ const Chat = () => {
       socket.off();
     };
   }, [username]);
+
+  useEffect(() => {
+    socket.on("user", (Usuario) => {
+      setNewUser(Usuario);
+    });
+  });
 
   useEffect(() => {
     socket.on("message", (message) => {
@@ -41,43 +45,12 @@ const Chat = () => {
     messageRef.current.scrollIntoView({ behavior: "smooth" });
   });
 
-  const sendMessage = (e) => {
-    e.preventDefault();
-    if (!message.length) return;
-    socket.emit("sendMessage", message);
-    setMessage("");
-  };
-
-  console.info({ message }, { messages });
-  // console.info(users);
+  console.info({ messages });
+  console.info(newUser);
 
   return (
     <div className={styles.container}>
-      <div className={styles.chat_container}>
-        <div className={styles.user_container}>
-          <div className={styles.avatar}>
-            <img src={avatar} alt={username} />
-          </div>
-          <h6>
-            {/* {messages[0].text} */}
-            Hello, {`${username.split(" ")[0]}`}
-          </h6>
-          <button onClick={() => SignOut()}>Sign Out</button>
-        </div>
-        <div className={styles.information_container}>
-          <h6>You're Online!</h6>
-          <p>{users.length} user(s) online now</p>
-          <div className={styles.notifications}>
-            <h6>Notifications</h6>
-            <p>
-              <span>@{"Jose"}</span> Has joined the chat, say hello!
-            </p>
-            {/* {messages.map((message, i) => (
-              <Messages key={i} mess={message} />
-            ))} */}
-          </div>
-        </div>
-      </div>
+      <ChatLeftSide users={users} newUser={newUser} />
       <div className={styles.form_container}>
         <div>
           {messages.map((message, i) => (
@@ -85,17 +58,7 @@ const Chat = () => {
           ))}
           <div ref={messageRef}></div>
         </div>
-        <form onSubmit={sendMessage}>
-          <div>
-            <input
-              type="text"
-              value={message}
-              placeholder="type your message here...!"
-              onChange={(e) => setMessage(e.target.value)}
-            />
-            <button>Enviar</button>
-          </div>
-        </form>
+        <SendMessageForm />
       </div>
     </div>
   );
