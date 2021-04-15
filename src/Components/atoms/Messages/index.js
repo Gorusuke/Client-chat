@@ -3,28 +3,27 @@ import styles from "./index.module.css";
 
 const Messages = ({ mess, username }) => {
   const nameUser = username.split(" ")[0];
+  const messUser = mess.user.split(" ")[0];
 
   return (
     <div
       className={
-        nameUser === mess.user
+        nameUser === messUser
           ? styles.message
-          : mess.user === "admin"
+          : messUser === "admin"
           ? styles.admin
           : styles.other_message
       }
     >
       {mess.user === "admin" ? (
-        <div className={styles.admin}>
+        <div>
           <p>{mess.text}</p>
         </div>
       ) : (
         <>
           <span></span>
           <div>
-            {nameUser !== mess.user && (
-              <b className={styles.user}>{mess.user.split(" ")[0]}</b>
-            )}
+            {nameUser !== messUser && <b className={styles.user}>{messUser}</b>}
             <div className={styles.text}>
               <p>{mess.text}</p>
               <span>12:45pm</span>

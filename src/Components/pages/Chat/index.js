@@ -45,8 +45,9 @@ const Chat = () => {
     messageRef.current.scrollIntoView({ behavior: "smooth" });
   });
 
-  console.info({ messages });
-  console.info(newUser);
+  // console.info({ messages });
+  // console.info(newUser);
+  console.info(users);
 
   return (
     <div className={styles.container}>

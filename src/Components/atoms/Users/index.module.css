@@ -1,0 +1,26 @@
+.users_container{
+  clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 75% 95%, 75% 100%, 50% 95%, 0 95%);
+  position: absolute;
+  background-color: white;
+  left: -10px;
+  top: 56%;
+  transform: translate(-50%, -50%);
+  padding: 1rem;
+  padding-bottom: 2.5rem;
+  /* border: 2px solid #09f; */
+  /* height: 200px;
+  width: 200px; */
+}
+
+.users_container > p {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+
+.users_container > p > b{
+  color: #00b176;
+  font-size: 1.5rem;
+  margin-right: 2px;
+}

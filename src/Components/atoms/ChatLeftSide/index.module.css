@@ -63,6 +63,7 @@
   font-weight: 600;
   font-size: .9rem;
   color: var(--secondary);
+  cursor: pointer;
 }
 
 .notifications2{
@@ -74,22 +75,19 @@
     border: 2px solid transparent;
     background-color: #fff;
   }
-  20%{
+  25%{
     border: 2px solid #09f;
   }
-  40%{
+  50%{
     border: 2px solid transparent;
     background-color: #fff;
   }
-  60%{
+  75%{
     border: 2px solid #09f;
-  }
-  80%{
-    border: 2px solid transparent;
-    background-color: #fff;
   }
   100%{
-    border: 2px solid #09f;
+    border: 2px solid transparent;
+    background-color: #fff;
   }
 }
 

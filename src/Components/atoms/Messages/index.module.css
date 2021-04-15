@@ -48,16 +48,13 @@
   border-radius: .5rem;
   font-size: .8rem;
   color: white;
-  width: 196px;
-  height: 24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
+  padding: 5px 10px;
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
   margin: 0 auto;
-}
-
-.admin > p{
-  margin: 0;
+  margin-bottom: .4rem;
 }
 
 .text{
