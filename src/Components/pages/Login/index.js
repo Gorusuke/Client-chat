@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./index.module.css";
 import { Link } from "react-router-dom";
 import { signInWithGoogle, loginWithGithub } from "../../firebase/firebase";
+import Axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -29,6 +30,14 @@ const Login = () => {
     // console.info(email);
     // console.info(password);
     // Mandar al chat
+    Axios.post("http://localhost:4000/api/login", {
+      email,
+      password,
+    }).then((result) => {
+      const { data } = result;
+      sessionStorage.setItem("token", data.token);
+      window.location = "/";
+    });
   };
 
   return (

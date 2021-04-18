@@ -29,16 +29,14 @@ const mapUserFromFirebase = (user) => {
 
 export const authStateChange = (onChange) => {
   return auth.onAuthStateChanged((user) => {
-    user &&
-      sessionStorage.setItem(
-        "token",
-        JSON.stringify({
-          email: user.email,
-          username: user.displayName,
-          uid: user.uid,
-          avatar: user.photoURL,
-        })
-      );
+    // user &&
+    //   sessionStorage.setItem(
+    //     "token",
+    //     JSON.stringify({
+    //       username: user.displayName,
+    //       avatar: user.photoURL,
+    //     })
+    //   );
     const normalizedUser = user ? mapUserFromFirebase(user) : null;
     onChange(normalizedUser);
   });
@@ -64,10 +62,14 @@ export const loginWithGithub = async () => {
   }
 };
 
+// export const SignOut = async () => {
+//   sessionStorage.removeItem("token");
+// };
+
 export const SignOut = async () => {
   try {
+    // sessionStorage.removeItem("token");
     await firebase.auth().signOut();
-    sessionStorage.removeItem("token");
   } catch (error) {
     console.info(error);
   }

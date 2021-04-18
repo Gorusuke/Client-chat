@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./index.module.css";
 import { Link, useHistory } from "react-router-dom";
+import Axios from "axios";
 
 const SignUp = () => {
   const [newUser, setNewUser] = useState({
@@ -17,7 +18,7 @@ const SignUp = () => {
   });
   const history = useHistory();
 
-  const { email, password, confirm } = newUser;
+  const { username, email, password, confirm } = newUser;
 
   const validarEmail = (e) => {
     if (e.target.value === "") {
@@ -100,6 +101,11 @@ const SignUp = () => {
     }
 
     // registrar en la base de datos
+    Axios.post("http://localhost:4000/api/users", {
+      username,
+      email,
+      password,
+    });
 
     // redireccionar al login
     history.push("/login");
