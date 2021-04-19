@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-// import socket from "../../socket";
+import socket from "../../socket";
 import styles from "./index.module.css";
 
 const SendMessageForm = () => {
   const [message, setMessage] = useState("");
-  // const { username } = JSON.parse(sessionStorage.getItem("token"));
 
   const sendMessage = (e) => {
     e.preventDefault();
     if (!message.length) return;
-    // socket.emit("sendMessage", message);
+    socket.emit("sendMessage", message);
     setMessage("");
   };
 

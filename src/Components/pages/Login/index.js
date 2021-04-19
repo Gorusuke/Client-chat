@@ -9,6 +9,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errorEmail, setErrorEmail] = useState(false);
   const [errorPassword, setErrorPassword] = useState(false);
+  // useUser();
+  // console.info(user);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -27,8 +29,7 @@ const Login = () => {
       setErrorPassword(true);
       return;
     }
-    // console.info(email);
-    // console.info(password);
+
     // Mandar al chat
     Axios.post("http://localhost:4000/api/login", {
       email,
@@ -36,6 +37,7 @@ const Login = () => {
     }).then((result) => {
       const { data } = result;
       sessionStorage.setItem("token", data.token);
+      sessionStorage.setItem("username", data.username);
       window.location = "/";
     });
   };

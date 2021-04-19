@@ -29,14 +29,8 @@ const mapUserFromFirebase = (user) => {
 
 export const authStateChange = (onChange) => {
   return auth.onAuthStateChanged((user) => {
-    // user &&
-    //   sessionStorage.setItem(
-    //     "token",
-    //     JSON.stringify({
-    //       username: user.displayName,
-    //       avatar: user.photoURL,
-    //     })
-    //   );
+    user && sessionStorage.setItem("username", user.displayName.split(" ")[0]);
+    sessionStorage.setItem("avatar", user.photoURL);
     const normalizedUser = user ? mapUserFromFirebase(user) : null;
     onChange(normalizedUser);
   });
@@ -46,9 +40,15 @@ export const signInWithGoogle = async () => {
   const googleProvider = new firebase.auth.GoogleAuthProvider();
   auth.useDeviceLanguage();
   try {
-    await auth.signInWithPopup(googleProvider);
+    let result = await auth.signInWithPopup(googleProvider);
+    let credential = result.credential;
+    let token = credential.accessToken;
+    sessionStorage.setItem("token", token);
+    window.location = "/";
   } catch (error) {
+    console.info(error.code);
     console.info(error.message);
+    console.info(error.credential);
   }
 };
 
@@ -56,20 +56,25 @@ export const loginWithGithub = async () => {
   const githubProvider = new firebase.auth.GithubAuthProvider();
   auth.useDeviceLanguage();
   try {
-    await auth.signInWithPopup(githubProvider);
+    let result = await auth.signInWithPopup(githubProvider);
+    let credential = result.credential;
+    let token = credential.accessToken;
+    sessionStorage.setItem("token", token);
+    window.location = "/";
   } catch (error) {
+    console.info(error.code);
     console.info(error.message);
+    console.info(error.credential);
   }
 };
 
-// export const SignOut = async () => {
-//   sessionStorage.removeItem("token");
-// };
-
 export const SignOut = async () => {
   try {
-    // sessionStorage.removeItem("token");
     await firebase.auth().signOut();
+    sessionStorage.removeItem("username");
+    sessionStorage.removeItem("avatar");
+    sessionStorage.removeItem("token");
+    window.location = "/login";
   } catch (error) {
     console.info(error);
   }
