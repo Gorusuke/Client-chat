@@ -29,11 +29,22 @@ const mapUserFromFirebase = (user) => {
 
 export const authStateChange = (onChange) => {
   return auth.onAuthStateChanged((user) => {
-    user && sessionStorage.setItem("username", user.displayName.split(" ")[0]);
-    sessionStorage.setItem("avatar", user.photoURL);
     const normalizedUser = user ? mapUserFromFirebase(user) : null;
     onChange(normalizedUser);
   });
+};
+
+const storage = (token, username, avatar) => {
+  sessionStorage.setItem("token", token);
+  sessionStorage.setItem("username", username);
+  sessionStorage.setItem("avatar", avatar);
+  window.location = "/";
+};
+
+const errors = (err) => {
+  console.info(err.code);
+  console.info(err.message);
+  console.info(err.credential);
 };
 
 export const signInWithGoogle = async () => {
@@ -42,13 +53,10 @@ export const signInWithGoogle = async () => {
   try {
     let result = await auth.signInWithPopup(googleProvider);
     let credential = result.credential;
-    let token = credential.accessToken;
-    sessionStorage.setItem("token", token);
-    window.location = "/";
+    let token = credential.idToken;
+    storage(token, result.user.displayName.split(" ")[0], result.user.photoURL);
   } catch (error) {
-    console.info(error.code);
-    console.info(error.message);
-    console.info(error.credential);
+    errors(error);
   }
 };
 
@@ -58,13 +66,10 @@ export const loginWithGithub = async () => {
   try {
     let result = await auth.signInWithPopup(githubProvider);
     let credential = result.credential;
-    let token = credential.accessToken;
-    sessionStorage.setItem("token", token);
-    window.location = "/";
+    let token = credential.idToken;
+    storage(token, result.user.displayName.split(" ")[0], result.user.photoURL);
   } catch (error) {
-    console.info(error.code);
-    console.info(error.message);
-    console.info(error.credential);
+    errors(error);
   }
 };
 

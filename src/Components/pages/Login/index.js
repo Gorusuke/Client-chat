@@ -3,6 +3,7 @@ import styles from "./index.module.css";
 import { Link } from "react-router-dom";
 import { signInWithGoogle, loginWithGithub } from "../../firebase/firebase";
 import Axios from "axios";
+import socket from "../../socket";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -38,6 +39,7 @@ const Login = () => {
       const { data } = result;
       sessionStorage.setItem("token", data.token);
       sessionStorage.setItem("username", data.username);
+      socket.emit("newUser", data.username);
       window.location = "/";
     });
   };

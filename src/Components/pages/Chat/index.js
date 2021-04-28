@@ -4,21 +4,25 @@ import styles from "./index.module.css";
 import Messages from "../../atoms/Messages";
 import ChatLeftSide from "../../atoms/ChatLeftSide";
 import SendMessageForm from "../../atoms/SendMessageForm";
+import axios from "axios";
 // import { useHistory } from "react-router-dom";
+// import useUser from "../../hooks/useUser";
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
   const [newUser, setNewUser] = useState([]);
-  const usernameToken = sessionStorage.getItem("username");
+  const username = sessionStorage.getItem("username");
   const messageRef = useRef(null);
-  let username = usernameToken;
+
+  useEffect(() => {
+    socket.on("new message", (data) => {
+      setMessages(data);
+    });
+  }, []);
 
   useEffect(() => {
     socket.emit("connected", username);
-    socket.emit("newUser", username, (callback) => {
-      setUsers(callback.users);
-    });
 
     return () => {
       // socket.emit("disconnect");
@@ -26,39 +30,36 @@ const Chat = () => {
     };
   }, [username]);
 
-  useEffect(() => {
-    socket.on("user", (Usuario) => {
-      setNewUser(Usuario);
-    });
-  });
-
-  useEffect(() => {
-    socket.on("message", (message) => {
-      setMessages([...messages, message]);
-    });
-
-    return () => {
-      socket.off();
-    };
-  }, [messages]);
-
-  useEffect(() => {
-    messageRef.current.scrollIntoView({ behavior: "smooth" });
-  });
+  // useEffect(() => {
+  //   socket.on("user", (Usuario) => {
+  //     setNewUser(Usuario);
+  //   });
+  // });
 
   // useEffect(() => {
-  //   socket.emit("connected", username);
-  //   socket.emit("newUser", username, (callback) => {
-  //     setUsers(callback.users);
+  //   socket.on("message", (message) => {
+  //     setMessages([...messages, message]);
   //   });
 
   //   return () => {
-  //     // socket.emit("disconnect");
   //     socket.off();
   //   };
-  // }, [username]);
+  // }, [messages]);
 
-  console.info(username);
+  // console.info(username);
+
+  useEffect(() => {
+    const apiMessages = async () => {
+      const url = "http://localhost:4000/api/messages";
+      const response = await axios.get(url);
+      setMessages(response.data);
+    };
+    apiMessages();
+  });
+
+  useEffect(() => {
+    messageRef.current.scrollIntoView({ behavior: "smooth" });
+  }, [setMessages]);
 
   return (
     <div className={styles.container}>
@@ -66,7 +67,7 @@ const Chat = () => {
       <div className={styles.form_container}>
         <div>
           {messages.map((message, i) => (
-            <Messages key={i} mess={message} username={username} />
+            <Messages key={i} chatMessages={message} username={username} />
           ))}
           <div ref={messageRef}></div>
         </div>

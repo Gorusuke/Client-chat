@@ -4,11 +4,17 @@ import styles from "./index.module.css";
 
 const SendMessageForm = () => {
   const [message, setMessage] = useState("");
+  const username = sessionStorage.getItem("username");
+  const data = {
+    username,
+    message,
+  };
+  // console.info(username);
 
   const sendMessage = (e) => {
     e.preventDefault();
     if (!message.length) return;
-    socket.emit("sendMessage", message);
+    socket.emit("sendMessage", data);
     setMessage("");
   };
 

@@ -1,31 +1,26 @@
 import React from "react";
 import styles from "./index.module.css";
 
-const Messages = ({ mess, username }) => {
-  const nameUser = username.split(" ")[0];
-  const messUser = mess.user.split(" ")[0];
-
+const Messages = ({ chatMessages, username }) => {
   return (
     <div
       className={
-        nameUser === messUser
-          ? styles.message
-          : messUser === "admin"
-          ? styles.admin
-          : styles.other_message
+        chatMessages.user === username ? styles.message : styles.other_message
       }
     >
-      {mess.user === "admin" ? (
+      {chatMessages.userr === "admin" ? (
         <div>
-          <p>{mess.text}</p>
+          <p>{chatMessages.message}</p>
         </div>
       ) : (
         <>
           <span></span>
           <div>
-            {nameUser !== messUser && <b className={styles.user}>{messUser}</b>}
+            {chatMessages.user !== username && (
+              <b className={styles.user}>{chatMessages.user}</b>
+            )}
             <div className={styles.text}>
-              <p>{mess.text}</p>
+              <p>{chatMessages.message}</p>
               <span>12:45pm</span>
             </div>
           </div>
