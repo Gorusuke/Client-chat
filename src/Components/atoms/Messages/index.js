@@ -1,7 +1,10 @@
 import React from "react";
+import useTime from "../../hooks/useTime";
 import styles from "./index.module.css";
 
-const Messages = ({ chatMessages, username, conection }) => {
+const Messages = ({ chatMessages, username }) => {
+  const time = useTime(chatMessages.date);
+
   return (
     <div
       className={
@@ -25,7 +28,9 @@ const Messages = ({ chatMessages, username, conection }) => {
           )}
           <div className={styles.text}>
             <p>{chatMessages.message}</p>
-            <span>12:45pm</span>
+            <span>
+              <b>{time}</b>
+            </span>
           </div>
         </div>
       </>

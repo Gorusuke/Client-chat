@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Messages from "../../atoms/Messages";
+import socket from "../../socket";
 
-const MessagesContent = ({ conection }) => {
+const MessagesContent = () => {
   const [messages, setMessages] = useState([]);
+  const [conection, setConection] = useState([]);
   const username = sessionStorage.getItem("username");
   const messageRef = useRef(null);
 
@@ -15,11 +17,17 @@ const MessagesContent = ({ conection }) => {
 
   useEffect(() => {
     apiMessages();
-  }, [messages]);
+  }, []);
 
   useEffect(() => {
     messageRef.current.scrollIntoView({ behavior: "smooth" });
-  });
+  }, []);
+
+  useEffect(() => {
+    socket.on("message", (message) => {
+      setConection(message);
+    });
+  }, []);
 
   return (
     <div>

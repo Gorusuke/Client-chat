@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { SignOut } from "../../firebase/firebase";
 import styles from "./index.module.css";
+import socket from "../../socket";
 
-const ChatLeftSide = ({ users, newUser }) => {
+const ChatLeftSide = () => {
   const usernameToken = sessionStorage.getItem("username");
   const avatarToken = sessionStorage.getItem("avatar");
   const [notify, setNotify] = useState(false);
+  const [newUser, setNewUser] = useState([]);
+
+  useEffect(() => {
+    socket.emit("users", ({ users }) => {
+      setNewUser(users);
+    });
+  }, [newUser]);
 
   useEffect(() => {
     setNotify(true);
@@ -34,11 +42,11 @@ const ChatLeftSide = ({ users, newUser }) => {
         <p>{newUser.length} user(s) online now</p>
         <div className={notify ? styles.notifications2 : styles.notifications}>
           <h6>Notifications</h6>
-          {newUser.text && (
+          {/* {newUser.text && (
             <p>
               <span>{newUser.text}</span> Has joined the chat, say hello!
             </p>
-          )}
+          )} */}
         </div>
       </div>
     </div>
