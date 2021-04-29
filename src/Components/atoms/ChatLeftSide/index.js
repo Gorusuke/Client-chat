@@ -3,8 +3,8 @@ import { SignOut } from "../../firebase/firebase";
 import styles from "./index.module.css";
 
 const ChatLeftSide = ({ users, newUser }) => {
-  let usernameToken = sessionStorage.getItem("username");
-  let avatarToken = sessionStorage.getItem("avatar");
+  const usernameToken = sessionStorage.getItem("username");
+  const avatarToken = sessionStorage.getItem("avatar");
   const [notify, setNotify] = useState(false);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const ChatLeftSide = ({ users, newUser }) => {
       </div>
       <div className={styles.information_container}>
         <h6>You're Online!</h6>
-        <p>{users.length} user(s) online now</p>
+        <p>{newUser.length} user(s) online now</p>
         <div className={notify ? styles.notifications2 : styles.notifications}>
           <h6>Notifications</h6>
           {newUser.text && (
