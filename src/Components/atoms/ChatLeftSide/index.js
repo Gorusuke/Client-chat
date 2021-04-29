@@ -8,6 +8,7 @@ const ChatLeftSide = () => {
   const avatarToken = sessionStorage.getItem("avatar");
   const [notify, setNotify] = useState(false);
   const [newUser, setNewUser] = useState([]);
+  const [conection, setConection] = useState([]);
 
   useEffect(() => {
     socket.emit("users", ({ users }) => {
@@ -16,11 +17,17 @@ const ChatLeftSide = () => {
   }, [newUser]);
 
   useEffect(() => {
+    socket.on("message", (message) => {
+      setConection(message);
+    });
+  }, []);
+
+  useEffect(() => {
     setNotify(true);
     setTimeout(() => {
       setNotify(false);
     }, 2000);
-  }, [newUser.text]);
+  }, [conection]);
 
   return (
     <div className={styles.chat_container}>
@@ -42,11 +49,11 @@ const ChatLeftSide = () => {
         <p>{newUser.length} user(s) online now</p>
         <div className={notify ? styles.notifications2 : styles.notifications}>
           <h6>Notifications</h6>
-          {/* {newUser.text && (
+          {conection && (
             <p>
-              <span>{newUser.text}</span> Has joined the chat, say hello!
+              <span>{conection.text}</span>
             </p>
-          )} */}
+          )}
         </div>
       </div>
     </div>

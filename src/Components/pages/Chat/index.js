@@ -4,8 +4,6 @@ import styles from "./index.module.css";
 import ChatLeftSide from "../../atoms/ChatLeftSide";
 import SendMessageForm from "../../atoms/SendMessageForm";
 import MessagesContent from "../../atoms/MessagesContent";
-// import { useHistory } from "react-router-dom";
-// import useUser from "../../hooks/useUser";
 
 const Chat = () => {
   const username = sessionStorage.getItem("username");

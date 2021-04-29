@@ -8,33 +8,21 @@ const Messages = ({ chatMessages, username }) => {
   return (
     <div
       className={
-        chatMessages.user === username
-          ? styles.message
-          : // : conection.user === "admin"
-            // ? styles.admin
-            styles.other_message
+        chatMessages.user === username ? styles.message : styles.other_message
       }
     >
-      {/* {conection.user === "admin" ? (
-        <div>
-          <p>{conection.text}</p>
+      <span></span>
+      <div>
+        {chatMessages.user !== username && (
+          <b className={styles.user}>{chatMessages.user}</b>
+        )}
+        <div className={styles.text}>
+          <p>{chatMessages.message}</p>
+          <span>
+            <b>{time}</b>
+          </span>
         </div>
-      ) : ( */}
-      <>
-        <span></span>
-        <div>
-          {chatMessages.user !== username && (
-            <b className={styles.user}>{chatMessages.user}</b>
-          )}
-          <div className={styles.text}>
-            <p>{chatMessages.message}</p>
-            <span>
-              <b>{time}</b>
-            </span>
-          </div>
-        </div>
-      </>
-      {/* )} */}
+      </div>
     </div>
   );
 };
