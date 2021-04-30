@@ -45,8 +45,10 @@ const ChatLeftSide = () => {
         <button onClick={() => SignOut()}>Sign Out</button>
       </div>
       <div className={styles.information_container}>
-        <h6>You're Online!</h6>
-        <p>{newUser.length} user(s) online now</p>
+        <div className={styles.information_users}>
+          <h6>You're Online!</h6>
+          <p>{newUser.length} user(s) online now</p>
+        </div>
         <div className={notify ? styles.notifications2 : styles.notifications}>
           <h6>Notifications</h6>
           {conection && (

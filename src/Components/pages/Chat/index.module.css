@@ -14,13 +14,15 @@
 .form_container{
   width: 100%;
   /* width: 67%; */
+  height: 375px;
   border: 2px solid #09f;
   border-radius: .8rem;
   position: relative;
+  margin-top: 1rem;
 }
 
 .form_container > div {
-  height: 475px;
+  height: 320px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -52,6 +54,8 @@
 
   .form_container{
     width: 495px;
+    margin-top: 0;
+    height: auto;
   }
 
   .form_container > div {

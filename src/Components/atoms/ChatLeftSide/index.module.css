@@ -59,19 +59,29 @@
 
 .information_container{
   width: 100%;
-  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
 }
 
-.information_container > h6{
-  font-size: 1rem;
+.information_users{
+  width: 40%;
+  margin-top: 1rem;
+  border: 2px solid #09f;
+  border-radius: 10px;
+  padding: .5rem;
+}
+
+.information_users > h6{
+  font-size: .8rem;
   color: #01a06b;
 }
 
-.information_container > p{
+.information_users > p{
   font-weight: 600;
-  font-size: .9rem;
+  font-size: .7rem;
   color: var(--secondary);
   cursor: pointer;
+  margin-top: 8px;
 }
 
 .notifications2{
@@ -101,6 +111,7 @@
 
 .notifications2,
 .notifications{
+  width: 58%;
   margin-top: 1rem;
   border: 2px solid #09f;
   border-radius: 10px;
@@ -110,15 +121,15 @@
 .notifications2 > h6,
 .notifications > h6{
   color:  #01a06b;
-  font-size: .9rem;
+  font-size: .8rem;
 }
 
 .notifications2 > p ,
 .notifications > p {
-  margin-top: 12px;
+  margin-top: 8px;
   color: var(--secondary);
   font-weight: 600;
-  font-size: .8rem;
+  font-size: .7rem;
 }
 
 @media (min-width: 450px) {
@@ -127,16 +138,38 @@
   }
 }
 
+@media (min-width: 481px) {
+
+  .information_users > h6{
+    font-size: .9rem;
+    color: #01a06b;
+  }
+  
+  .information_users > p{
+    margin-top: 12px;
+    font-size: .8rem;
+  }
+
+  .notifications2 > h6,
+  .notifications > h6{
+    color:  #01a06b;
+    font-size: .9rem;
+  }
+
+  .notifications2 > p ,
+  .notifications > p {
+    margin-top: 12px;
+    font-size: .8rem;
+  }
+}
+
 @media (min-width: 800px) {
   .chat_container{
-    /* width: 90%; */
-    min-width: 220px;
-    display: flex;
-    flex-direction: column;
+    width: 220px;
   }
 
   .user_container{
-    padding: 2rem 0 1.5rem 0;
+    padding: 1.65rem;
     flex-direction: column;
   }
 
@@ -151,6 +184,32 @@
 
   .user_container > h6{
     margin: .8rem 0;
+  }
+
+  .information_container{
+    margin-top: 2rem;
+    display: block;
+  }
+
+  .information_users{
+    border: none;
+    width: 100%;
+    margin-top: 0;
+    padding: 0;
+  }
+
+  .notifications2,
+  .notifications{
+    width: 100%;
+  }
+
+  .information_users > h6{
+    font-size: 1rem;
+  }
+  
+  .information_users > p{
+    font-size: .9rem;
+    margin-top: 0;
   }
 }
 
