@@ -1,6 +1,7 @@
 .container{
-  width: 800px;
-  height: 480px;
+  width: 90%;
+  min-width: 350px;
+  height: 600px;
   top: 50%;
   left: 50%;
   position: absolute;
@@ -8,12 +9,10 @@
   background-color: var(--light);
   border-radius: 1rem;
   padding: 2rem;
-  display: flex;
-  justify-content: space-between;
 }
 
 .form_container{
-  width: 495px;
+  width: 100%;
   /* width: 67%; */
   border: 2px solid #09f;
   border-radius: .8rem;
@@ -21,7 +20,7 @@
 }
 
 .form_container > div {
-  height: 360px;
+  height: 475px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -43,3 +42,26 @@
   background: #afafaf;
 }
 
+@media (min-width: 800px) {
+  .container{
+    width: 800px;
+    height: 480px;    
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .form_container{
+    width: 495px;
+  }
+
+  .form_container > div {
+    height: 360px;
+  }
+}
+
+/* @media (min-width: 450px) {
+  .container{
+    width: 800px;
+    height: 480px;
+  }
+} */

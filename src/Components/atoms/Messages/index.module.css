@@ -1,7 +1,7 @@
 .message, .other_message{
   background-color: var(--secondary);
   padding: 7px;
-  max-width: 400px;
+  max-width: 85%;
   border-radius: .3rem;
   margin-top: .4rem;
   font-size: .8rem;
@@ -56,18 +56,19 @@
 .text{
   width: 100%;
   display: flex;
-}
-
-.text > p{
-  margin-right: .3rem;
+  flex-direction: column;
 }
 
 .text > span {
   font-size: 9px;
-  font-weight: 500;
-  align-self: flex-end;
+  font-weight: 800;
   color: red;
-  position: relative;
-  bottom: 0px;
-  right: 0px;
+  align-self: flex-end;
+  margin-top: .1rem;
+}
+
+@media (min-width: 768px) {
+  .message, .other_message{
+    max-width: 400px;
+  }
 }

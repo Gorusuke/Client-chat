@@ -19,7 +19,7 @@ const MessagesContent = () => {
 
   useEffect(() => {
     messageRef.current.scrollIntoView({ behavior: "smooth" });
-  });
+  }, []);
 
   return (
     <div>

@@ -18,9 +18,7 @@ const Messages = ({ chatMessages, username }) => {
         )}
         <div className={styles.text}>
           <p>{chatMessages.message}</p>
-          <span>
-            <b>{time}</b>
-          </span>
+          <span>{time}</span>
         </div>
       </div>
     </div>
